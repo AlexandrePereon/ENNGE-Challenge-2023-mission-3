@@ -14,7 +14,7 @@ totp = pyotp.TOTP(secret_base32, 10, "sha512", 30, 0)
 totp_password = totp.now()
 
 auth_psws = email + ":" + totp_password
-b64_auth_psws = base64.b64encode(auth_psws.encode()).decode()
+auth_psws_base64 = base64.b64encode(auth_psws.encode()).decode()
 
 payload = {
     "github_url": github_url,
@@ -24,7 +24,7 @@ payload = {
 
 url = "https://api.challenge.hennge.com/challenges/003"
 headers = {
-    "Authorization": f"Basic {b64_auth_psws}",
+    "Authorization": f"Basic {auth_psws_base64}",
     "Content-Type": "application/json",
 }
 
